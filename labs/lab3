@@ -1,0 +1,50 @@
+#Question 1
+import timeit
+def BinSearch(arr,item):
+    n, beg = len(arr), 0
+    end = n-1
+    while beg <= end:
+        mid = (beg+end)//2
+        if item < arr[mid]:
+            end = mid-1
+        elif item > arr[mid] :
+            beg = mid+1
+        elif item == arr[mid]:
+            return mid
+array = input("Binary Search Program\nEnter numbers of you array(separated by comma): ").split(',')
+array = [int(i) for i in array]
+item = int(input("Enter item to be searched: "))
+start = timeit.default_timer()
+i = BinSearch(array,item)
+runtime = timeit.default_timer()-start
+print(f'My BinSearch:\nArray = {array}\nIndex = {i}\nTime = {runtime}')
+start = timeit.default_timer()
+i = array.index(3)
+runtime = timeit.default_timer()-start
+print(f'Built-In Index() Function:\nArray = {array}\nIndex = {i}\nTime = {runtime}')
+
+
+#Question 3
+def BinSearch(arr,item,sorted1,sorted2):
+    sorted1.sort()
+    sorted2.sort(reverse = True)
+    if arr == sorted1 or arr == sorted2:
+        n, beg = len(arr), 0
+        end = n-1
+        while beg <= end:
+            mid = (beg+end)//2
+            if item < arr[mid]:
+                end = mid-1
+            elif item > arr[mid] :
+                beg = mid+1
+            elif item == arr[mid]:
+                return mid
+        arr.append(item)
+        arr.sort()
+        return f'Item Not Found\nNew List = {arr}'
+    else:
+        return "BinSearch can't be done on an unsorted list"
+array = input("Binary Search Program\nEnter numbers of you array(separated by comma): ").split(',')
+array, sorted1, sorted2 = [int(i) for i in array], [int(j) for j in array], [int(k) for k in array]
+item = int(input("Enter item to be searched: "))
+print(BinSearch(array,item,sorted1,sorted2))
